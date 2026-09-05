@@ -13,6 +13,8 @@ Mac.
 - `lille-macbook-air` is only for work that must touch that machine.
 - Do not start from Save or `CURSOR_API_KEY`. A committed
   `.cursor/environment.json` is enough for Cloud Agents.
+- Stay on **Cursor Grok 4.6 High**. Other Models / on-demand is exhausted —
+  do not switch to Claude, GPT, Gemini, or a computerUse subagent.
 - Private Cloud clones need the Cursor GitHub App on the repo org.
   Boom-Butik is missing it:
   https://github.com/apps/cursor/installations/new?target_id=142605033
