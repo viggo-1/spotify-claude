@@ -16,5 +16,6 @@ Mac.
 - Stay on **Cursor Grok 4.6 High**. Other Models / on-demand is exhausted —
   do not switch to Claude, GPT, Gemini, or a computerUse subagent.
 - Private Cloud clones need the Cursor GitHub App on the repo org.
-  Boom-Butik is missing it:
-  https://github.com/apps/cursor/installations/new?target_id=142605033
+  `skoenheden` and `Boom-Butik` both have it (`contents:write`).
+  Boom-Butik install: target_id=142605033
+  https://github.com/organizations/Boom-Butik/settings/installations/159280535
