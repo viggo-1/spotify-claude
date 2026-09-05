@@ -1,5 +1,5 @@
 ---
-description: Cloud is the default execution target. Do not send work to flapping Mac workers.
+description: Cloud is the default execution target. One worker per Mac. Never send work to mac-mini.
 alwaysApply: true
 ---
 
@@ -9,13 +9,32 @@ Run tool calls in Cursor Cloud (sky icon, managed Ubuntu VM) unless the task
 explicitly needs files, GPU, iOS tools, or credentials that exist only on one
 Mac.
 
-- Do not target `mac-mini`. It drops its worker connection and orphans runs.
-- `lille-macbook-air` is only for work that must touch that machine.
-- Do not start from Save or `CURSOR_API_KEY`. A committed
-  `.cursor/environment.json` is enough for Cloud Agents.
+Best practice is that routing — not local scripts.
+
 - Stay on **Cursor Grok 4.6 High**. Other Models / on-demand is exhausted —
   do not switch to Claude, GPT, Gemini, or a computerUse subagent.
+- Exactly one worker registration per physical Mac. Never two on the same
+  `machineId`.
+- Do not target `mac-mini`. NEVER. It drops its connection and orphans
+  runs. `eligibleForSubagent: true` is CONN-CHURN, not a Task target.
+- Do not spawn Task subagents to Mini or the Air. They ERROR or boot
+  Linux `hostname: cursor`.
+- Lille MacBook Air is 8 GB and swap-bound. Not a Cloud target now.
+  Prefer Cloud. Do not Task, apply, or kickstart there. Mini is not
+  overflow. Delete nothing without Viggo's yes.
+- `lille-macbook-air` is desktop-only, and not while it is memory-starved.
+  `eligibleForSubagent: true` on the Air is not a Cloud target.
+- Do not open `~/cursor` / `viggo-1/cursor` as a Cursor window while the
+  launchd worker runs. That spawns `~/cursor @ Lille MacBook Air` on the
+  same `machineId` and evicts the hardened worker.
+- Never target `~/cursor @ …`, `~/code @ …`, or `cursor-agent-worker-*`.
+- Do not start from Save or `CURSOR_API_KEY`. A committed
+  `.cursor/environment.json` is enough for Cloud Agents.
 - Private Cloud clones need the Cursor GitHub App on the repo org.
   `skoenheden` and `Boom-Butik` both have it (`contents:write`).
   Boom-Butik install: target_id=142605033
   https://github.com/organizations/Boom-Butik/settings/installations/159280535
+
+stop-stray / forget-app / watchdog-hooks are temporary patches for product
+gaps (My Machines has no Delete). They are not the goal. Do not add more
+unless something is on fire.
